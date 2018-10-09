@@ -1,0 +1,41 @@
+- name: CREATE ARM Deployment PLAYBOOK
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    # Variables 'resgrp' and 'location' need to be provided at command line with arg --extra-vars
+    templateblob: 'https://raw.githubusercontent.com/sangaml/VB/master/blobstorage.json'
+    #paramskey: 'https://raw.githubusercontent.com/sangaml/ARM_Ansible_IAAS/master/keyvault.parameters.json'
+    mlworksapcec: 'https://raw.githubusercontent.com/sangaml/VB/master/mlworkspace.json'
+    mongoparams: 'https://raw.githubusercontent.com/sangaml/testarm/master/mongo.parameters.json'
+    templateLink: 'https://raw.githubusercontent.com/sangaml/VB/master/vnet_ALB.json'
+    #sqlserver: 'https://raw.githubusercontent.com/sangaml/ARM_Ansible_IAAS/master/ARMtemplate-newVM.json'
+    #sqlparamsLink: 'https://raw.githubusercontent.com/sangaml/ARM_Ansible_IAAS/master/sql-server.parameters.json'
+    
+    
+  tasks:
+  - name: Deploy Blob Storage template
+    azure_rm_deployment:
+        state: present
+        resource_group_name: '{{ resgrp }}'
+        # location seems to be not optional
+        location: '{{ location }}'
+        template_link: '{{ templateblob }}'
+        #parameters_link: '{{ paramskey }}'
+        
+  - name: Deploy ml_workspace template
+    azure_rm_deployment:
+        state: present
+        resource_group_name: '{{ resgrp }}'
+        # location seems to be not optional
+        location: '{{ location }}'
+        template_link: '{{ mlworksapcec }}'
+        #parameters_link: '{{ mongoparams }}'
+        
+  - name: Deploy ALB&VNET ARM template
+    azure_rm_deployment:
+        state: present
+        resource_group_name: '{{ resgrp }}'
+  #      # location seems to be not optional
+        location: '{{ location }}'
+        #template_link: '{{ templateLink }}'
