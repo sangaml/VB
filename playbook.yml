@@ -14,14 +14,14 @@
     
     
   tasks:
-  - name: Deploy Blob Storage template
-    azure_rm_deployment:
-        state: present
-        resource_group_name: '{{ resgrp }}'
+ # - name: Deploy Blob Storage template
+ #   azure_rm_deployment:
+ #       state: present
+ #       resource_group_name: '{{ resgrp }}'
         # location seems to be not optional
-        location: '{{ location }}'
-        template_link: '{{ templateblob }}'
-        parameters_link: '{{ paramskey }}'
+ #       location: '{{ location }}'
+ #       template_link: '{{ templateblob }}'
+ #       parameters_link: '{{ paramskey }}'
         
  # - name: Deploy ml_workspace template
  #   azure_rm_deployment:
