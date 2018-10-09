@@ -8,7 +8,7 @@
     paramskey: 'https://raw.githubusercontent.com/sangaml/VB/master/blobstorage.parameters.json'
     mlworksapcec: 'https://raw.githubusercontent.com/sangaml/VB/master/mlworkspace.json'
     mongoparams: 'https://raw.githubusercontent.com/sangaml/testarm/master/mongo.parameters.json'
-    templateLink: 'https://raw.githubusercontent.com/sangaml/VB/master/vnet_ALB.json'
+    templateLink: 'https://raw.githubusercontent.com/sangaml/VB/master/ALBWAF.json'
     #sqlserver: 'https://raw.githubusercontent.com/sangaml/ARM_Ansible_IAAS/master/ARMtemplate-newVM.json'
     #sqlparamsLink: 'https://raw.githubusercontent.com/sangaml/ARM_Ansible_IAAS/master/sql-server.parameters.json'
     
