@@ -1,62 +1,38 @@
 {
-  "name": "string",
-  "type": "Microsoft.Storage/storageAccounts",
-  "apiVersion": "2018-07-01",
-  "sku": {
-    "name": "string",
-    "restrictions": [
-      {
-        "reasonCode": "string"
-      }
-    ]
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": {
+      "type": "string"
+    }
   },
-  "kind": "string",
-  "location": "string",
-  "tags": {},
-  "identity": {
-    "type": "SystemAssigned"
+  "variables": {
+    "containerName": "logs"
   },
-  "properties": {
-    "customDomain": {
-      "name": "string",
-      "useSubDomain": boolean
-    },
-    "encryption": {
-      "services": {
-        "blob": {
-          "enabled": boolean
-        },
-        "file": {
-          "enabled": boolean
-        }
+  "resources": [
+    {
+      "name": "[parameters('storageAccountName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2018-02-01",
+      "location": "[resourceGroup().location]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
       },
-      "keySource": "string",
-      "keyvaultproperties": {
-        "keyname": "string",
-        "keyversion": "string",
-        "keyvaulturi": "string"
-      }
-    },
-    "networkAcls": {
-      "bypass": "string",
-      "virtualNetworkRules": [
+      "properties": {
+        "accessTier": "Hot"
+      },
+      "resources": [
         {
-          "id": "string",
-          "action": "Allow",
-          "state": "string"
+          "name": "[concat('default/', variables('containerName'))]",
+          "type": "blobServices/containers",
+          "apiVersion": "2018-03-01-preview",
+          "dependsOn": [
+            "[parameters('storageAccountName')]"
+          ]
         }
-      ],
-      "ipRules": [
-        {
-          "value": "string",
-          "action": "Allow"
-        }
-      ],
-      "defaultAction": "string"
-    },
-    "accessTier": "string",
-    "azureFilesAadIntegration": boolean,
-    "supportsHttpsTrafficOnly": boolean,
-    "isHnsEnabled": boolean
-  }
+      ]
+    }
+  ]
 }
