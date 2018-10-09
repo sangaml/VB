@@ -4,6 +4,7 @@
   "parameters": {
     "virtualNetworkName": {
       "type": "string",
+      "defaultValue": "myvnet",
       "metadata": {
         "description": "virtual network name"
       }
