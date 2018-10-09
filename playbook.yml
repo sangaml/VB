@@ -38,4 +38,4 @@
         resource_group_name: '{{ resgrp }}'
   #      # location seems to be not optional
         location: '{{ location }}'
-        #template_link: '{{ templateLink }}'
+        template_link: '{{ templateLink }}'
