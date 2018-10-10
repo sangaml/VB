@@ -30,6 +30,7 @@
             "dependsOn": ["[variables('stgResourceId')]"],
             "properties": {
                 "UserStorageAccountId": "[variables('stgResourceId')]"
+                "ownerEmail": "live.com#ddsaraf27@outlook.com"
             }
         }
     ],
