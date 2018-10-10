@@ -23,19 +23,19 @@
  #       template_link: '{{ templateblob }}'
  #       parameters_link: '{{ paramskey }}'
         
- # - name: Deploy ml_workspace template
- #   azure_rm_deployment:
- #       state: present
- #       resource_group_name: '{{ resgrp }}'
-        # location seems to be not optional
- #       location: '{{ location }}'
- #       template_link: '{{ mlworksapcec }}'
-        #parameters_link: '{{ mongoparams }}'
-        
-  - name: Deploy ALB&VNET ARM template
+  - name: Deploy ml_workspace template
     azure_rm_deployment:
         state: present
         resource_group_name: '{{ resgrp }}'
-  #      # location seems to be not optional
+        # location seems to be not optional
         location: '{{ location }}'
-        template_link: '{{ templateLink }}'
+        template_link: '{{ mlworksapcec }}'
+        #parameters_link: '{{ mongoparams }}'
+        
+ # - name: Deploy ALB&VNET ARM template
+ #   azure_rm_deployment:
+ #       state: present
+ #       resource_group_name: '{{ resgrp }}'
+  #      # location seems to be not optional
+  #      location: '{{ location }}'
+  #      template_link: '{{ templateLink }}'
