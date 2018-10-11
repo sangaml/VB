@@ -1,43 +1,106 @@
 {
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "variables": {
-        "namePrefix": "[resourceGroup().name]",
-        "location": "[resourceGroup().location]",
-        "mlVersion": "2016-04-01",
-        "stgVersion": "2015-06-15",
-        "storageAccountName": "[concat(variables('namePrefix'),'stg')]",
-        "mlWorkspaceName": "[concat(variables('namePrefix'),'mlwk')]",
-        "mlResourceId": "[resourceId('Microsoft.MachineLearning/workspaces', variables('mlWorkspaceName'))]",
-        "stgResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-        "storageAccountType": "Standard_LRS"
+    "parameters": {
+        "storageAccounts_name": {
+            "type": "String"
+        },
+        "Workspaces_name": {
+            "type": "String"
+        },
+        "commitmentPlans_name": {
+            "type": "String"
+        }
     },
+    "variables": {},
     "resources": [
         {
-            "apiVersion": "[variables('stgVersion')]",
-            "name": "[variables('storageAccountName')]",
-            "type": "Microsoft.Storage/storageAccounts",
-            "location": "[variables('location')]",
+            "type": "Microsoft.MachineLearning/commitmentPlans",
+            "sku": {
+                "name": "DevTest",
+                "tier": "Standard",
+                "capacity": 1
+            },
+            "name": "[parameters('commitmentPlans_name')]",
+            "apiVersion": "2016-05-01-preview",
+            "location": "westeurope",
+            "tags": {},
+            "scale": null,
             "properties": {
-                "accountType": "[variables('storageAccountType')]"
-            }
+                "chargeForOverage": false,
+                "chargeForPlan": false,
+                "creationDate": "2018-10-09T11:07:21.501832Z",
+                "includedQuantities": {
+                    "machineLearningWebServiceComputeHours": {
+                        "allowance": 2,
+                        "amount": 0,
+                        "includedQuantityMeter": "29187de1-b4a1-4503-a6f6-078271b3fc9d",
+                        "overageMeter": "15fb14e6-ece4-4981-a179-2bc796d0b65b"
+                    },
+                    "machineLearningWebServiceTransactions": {
+                        "allowance": 1000,
+                        "amount": 0,
+                        "includedQuantityMeter": "303743b6-4cd0-44df-8ec2-a93c8f14943b",
+                        "overageMeter": "c7cf66fb-bcc3-4ee2-b81b-160bcf6c6a14"
+                    }
+                },
+                "maxAssociationLimit": 10000,
+                "maxCapacityLimit": 1,
+                "minCapacityLimit": 1,
+                "planMeter": "00000000-0000-0000-0000-000000000000",
+                "refillFrequencyInDays": 30,
+                "suspendPlanOnOverage": true
+            },
+            "dependsOn": []
         },
         {
-            "apiVersion": "[variables('mlVersion')]",
-            "type": "Microsoft.MachineLearning/workspaces",
-            "name": "[variables('mlWorkspaceName')]",
-            "location": "[variables('location')]",
-            "dependsOn": ["[variables('stgResourceId')]"],
+            "type": "Microsoft.MachineLearning/Workspaces",
+            "name": "[parameters('Workspaces_name')]",
+            "apiVersion": "2016-04-01",
+            "location": "West Europe",
+            "scale": null,
             "properties": {
-                "UserStorageAccountId": "[variables('stgResourceId')]",
+                "userStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_name'))]",
+                "keyVaultIdentifierId": null,
                 "ownerEmail": "live.com#ddsaraf27@outlook.com"
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_name')]",
+            "apiVersion": "2018-07-01",
+            "location": "westeurope",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            },
+            "dependsOn": []
         }
-    ],
-    "outputs": {
-        "mlWorkspaceObject": {"type": "object", "value": "[reference(variables('mlResourceId'), variables('mlVersion'))]"},
-        "mlWorkspaceToken": {"type": "string", "value": "[listWorkspaceKeys(variables('mlResourceId'), variables('mlVersion')).primaryToken]"},
-        "mlWorkspaceWorkspaceID": {"type": "string", "value": "[reference(variables('mlResourceId'), variables('mlVersion')).WorkspaceId]"},
-        "mlWorkspaceWorkspaceLink": {"type": "string", "value": "[concat('https://studio.azureml.net/Home/ViewWorkspace/', reference(variables('mlResourceId'), variables('mlVersion')).WorkspaceId)]"}
-    }
+    ]
 }
