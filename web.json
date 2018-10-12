@@ -1,4 +1,10 @@
 {
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+     "contentVersion": "1.0.0.0",
+     "parameters": {},
+     "variables": {},
+     "resources": [
+{
   "name": "string",
   "type": "Microsoft.MachineLearning/webServices",
   "apiVersion": "2017-01-01",
@@ -55,4 +61,6 @@
       "credentials": "string"
     }
   }
+}
+]
 }
