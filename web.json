@@ -2,34 +2,34 @@
   "name": "string",
   "type": "Microsoft.MachineLearning/webServices",
   "apiVersion": "2017-01-01",
-  "location": "string",
+  "location": "southeastasia",
   "tags": {},
   "properties": {
-    "packageType": "string",
-    "title": "string",
-    "description": "string",
+    "packageType": "WebServiceProperties ",
+    "title": "testmlweb",
+    "description": [],
     "keys": {
-      "primary": "string",
-      "secondary": "string"
+      "primary": [],
+      "secondary": []
     },
-    "readOnly": boolean,
-    "exposeSampleData": boolean,
+    "readOnly": "false",
+    "exposeSampleData": "false",
     "realtimeConfiguration": {
-      "maxConcurrentCalls": "integer"
+      "maxConcurrentCalls": "4"
     },
     "diagnostics": {
-      "level": "string",
-      "expiry": "string"
+      "level": "None",
+      "expiry": []
     },
     "storageAccount": {
-      "name": "string",
-      "key": "string"
+      "name": "pradneshmlworkstg",
+      "key": "Px9YijifONjsfEsouHLDMdVGDEsrcPWJjUWvlw/fV2Y9cgtpfncscgqDTBuQUDNZOh2UVyWfqPhathsOHTnGBw=="
     },
     "machineLearningWorkspace": {
-      "id": "string"
+      "id": "09bed9770248474bb2119364cb4eaa44"
     },
     "commitmentPlan": {
-      "id": "string"
+      "id": "/subscriptions/8c879d4b-1e31-438b-8f74-41093d5c4b83/resourceGroups/testfinal/providers/Microsoft.MachineLearning/commitmentPlans/pradneshworkspacePlan"
     },
     "input": {
       "title": "string",
@@ -49,7 +49,7 @@
     },
     "assets": {},
     "parameters": {},
-    "payloadsInBlobStorage": boolean,
+    "payloadsInBlobStorage": [],
     "payloadsLocation": {
       "uri": "string",
       "credentials": "string"
